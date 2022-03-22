@@ -1,0 +1,17 @@
+# Configure Bazel Java rules to use a Bazel-managed JDK.
+
+build --java_runtime_version=remotejdk_17
+build --tool_java_runtime_version=remotejdk_17
+
+# An even simpler example would not configure any extra caching; but
+# to speed up the CI used for these examples, it’s worth this extra bit
+# of configuration.
+
+# --repository_cache for fetched externals
+# --disk_cache for build artifacts
+
+build --disk_cache=~/.cache/bazel-disk
+fetch --disk_cache=~/.cache/bazel-disk
+query --disk_cache=~/.cache/bazel-disk
+sync --disk_cache=~/.cache/bazel-disk
+test --disk_cache=~/.cache/bazel-disk

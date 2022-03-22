@@ -1,0 +1,16 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
+load("@com_github_ash2k_bazel_tools//multirun:def.bzl", "multirun")
+load("service_list.bzl", "SERVICES")
+
+# Useful for update-repos, even if we don't use Gazelle otherwise.
+
+gazelle(name = "gazelle")
+
+multirun(
+    name = "develop",
+    commands = [s + ":command" for s in SERVICES] + [
+        "//people",
+        "//frontend",
+    ],
+    parallel = True,
+)
